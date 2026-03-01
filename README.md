@@ -1,142 +1,197 @@
-🚀 Smart India Hackathon 2025 Portal (Frontend)
-📌 Project Overview
+Smart India Hackathon 2025 Portal – Frontend
+Overview
 
-This project is a fully functional frontend simulation of the Smart India Hackathon (SIH) 2025 Portal built using React.js.
+This project is a complete frontend implementation of a Smart India Hackathon (SIH) 2025 Portal built using React.js.
 
-It includes:
+It replicates the workflow and structure of the official SIH platform, including problem browsing, detailed problem view, team application submission, file validation, and confirmation handling.
 
-Dynamic Problem Statements
+The project demonstrates structured component architecture, dynamic routing, form validation, state management, and professional UI implementation using React.
 
-Detailed Problem View
+Key Features
+Problem Statements Module
 
-Application Form with Team Member Validation
+Displays multiple problem statements
 
-PPT Upload Validation
+Dynamic routing for individual problem details
 
-Confirmation Page with Submitted Data
+Detailed view with organization, category, theme, and deadline
 
-Professional Government-Style UI
+Apply button redirects to the application form
 
-Responsive Design
+Application System
 
-🛠 Tech Stack
+Team-based application submission
+
+Maximum 5 members allowed
+
+All fields required validation
+
+Abstract submission (up to 5000 words)
+
+PPT upload validation (.ppt / .pptx only)
+
+Submit button disabled until form is valid
+
+Data passed to confirmation page via route state
+
+Confirmation Page
+
+Displays submitted team member details
+
+Displays abstract
+
+Clean success confirmation UI
+
+UI & Design
+
+Government-style professional layout
+
+Clean header and footer structure
+
+Horizontal theme slider with navigation arrows
+
+Responsive design
+
+Structured card-based layout
+
+Technology Stack
+
+Frontend
 
 React.js
 
 React Router DOM
 
-CSS3
-
 JavaScript (ES6)
 
-Git & GitHub
+CSS3
 
-📂 Project Structure
+Version Control
+
+Git
+
+GitHub
+
+Project Architecture
+
 src/
-│
-├── components/
-│   ├── layout/
-│   │   ├── Header.jsx
-│   │   └── Footer.jsx
-│   └── ThemeCard.jsx
-│
-├── pages/
-│   ├── Home.jsx
-│   ├── Login.jsx
-│   ├── ProblemStatements.jsx
-│   ├── ProblemDetails.jsx
-│   ├── Application.jsx
-│   └── Confirmation.jsx
-│
-├── sections/
-│   ├── AboutSection.jsx
-│   ├── GuidelinesSection.jsx
-│   ├── FAQSection.jsx
-│   └── ContactSection.jsx
-│
-├── data/
-│   └── problemData.js
-│
-├── images/
-│   └── sih.png
-│
-├── App.js
-└── index.js
-⚙️ Features
-🔹 Problem Statements
 
-Multiple problem listings
+components/
 
-Detailed problem view
+layout/
 
-Apply button navigation
+Header.jsx
 
-🔹 Application Form
+Footer.jsx
 
-Team Leader validation
+ThemeCard.jsx
 
-Maximum 5 members
+pages/
 
-All field validation
+Home.jsx
 
-Abstract submission
+Login.jsx
 
-PPT file validation (.ppt / .pptx only)
+ProblemStatements.jsx
 
-🔹 Confirmation Page
+ProblemDetails.jsx
 
-Displays team members
+Application.jsx
 
-Displays abstract
+Confirmation.jsx
 
-Shows submission success
+sections/
 
-🔹 UI Design
+AboutSection.jsx
 
-Government-style layout
+GuidelinesSection.jsx
 
-Smooth horizontal theme slider
+FAQSection.jsx
 
-Clean card design
+ContactSection.jsx
 
-Responsive layout
+data/
 
-▶️ How To Run The Project
-Step 1: Clone Repository
-git clone https://github.com/yourusername/SIH-Portal-Frontend.git
-Step 2: Navigate to Project
-cd SIH-Portal-Frontend
-Step 3: Install Dependencies
+problemData.js
+
+images/
+
+sih.png
+
+App.js
+index.js
+
+Application Workflow
+
+User navigates to Problem Statements.
+
+User selects a specific problem.
+
+User clicks Apply.
+
+User fills team details.
+
+User uploads PPT file.
+
+User submits application.
+
+User is redirected to confirmation page displaying submitted data.
+
+Form Validation Rules
+
+Only Team Leader is allowed to apply.
+
+Maximum 5 team members allowed.
+
+All member fields are mandatory.
+
+Abstract field must not be empty.
+
+PPT file must be .ppt or .pptx format.
+
+Submit button remains disabled until validation passes.
+
+Installation and Setup
+Step 1: Clone the repository
+
+git clone https://github.com/your-username/Sih_react.git
+
+Step 2: Navigate to project directory
+
+cd Sih_react
+
+Step 3: Install dependencies
+
 npm install
-Step 4: Start Development Server
+
+Step 4: Run development server
+
 npm start
 
-The app will run at:
+The application will run at:
 
 http://localhost:3000
-🔁 Application Flow
 
-Visit Problem Statements
+Development Notes
 
-Select a Problem
+React Router DOM is used for navigation and dynamic routing.
 
-Click Apply
+State is managed using React Hooks.
 
-Fill Application Form
+Route state is used to transfer data between Application and Confirmation pages.
 
-Submit
+The project follows modular component architecture for scalability.
 
-View Confirmation Page
+Future Improvements
 
-📌 Future Enhancements
+Backend integration (Node.js / Express / Firebase)
 
-Backend Integration (Node.js / Firebase)
+Database integration for persistent storage
 
-Database Storage
+Authentication and authorization system
 
-Authentication System
+Admin dashboard for problem management
 
-Admin Dashboard
+Cloud deployment (Vercel / Netlify / AWS)
 
-Deployment (Vercel / Netlify)
-
+API-based dynamic problem loading
