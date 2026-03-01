@@ -1,0 +1,49 @@
+.confirmationPage {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.successTitle {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* Table */
+
+.confirmTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.confirmTable th {
+  background: #333;
+  color: white;
+  padding: 12px;
+
+  text-align: left;
+}
+
+.confirmTable td {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+/* Abstract */
+
+.abstractBox {
+  border: 1px solid #ccc;
+
+  padding: 20px;
+
+  margin-top: 10px;
+
+  min-height: 150px;
+
+  background: #fafafa;
+}
