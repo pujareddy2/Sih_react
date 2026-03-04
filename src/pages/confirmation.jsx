@@ -4,6 +4,7 @@ import "./confirmation.css";
 
 function Confirmation() {
   const location = useLocation();
+  
 
   const members = location.state?.members || [];
   const solution = location.state?.solution || "";
@@ -33,6 +34,7 @@ function Confirmation() {
             ))}
           </tbody>
         </table>
+        
 
         <h3 className="sectionTitle">Abstract</h3>
 

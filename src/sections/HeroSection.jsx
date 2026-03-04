@@ -6,14 +6,13 @@ const HeroSection = () => {
     <section className="hero" id="home">
       <div className="hero-overlay">
         <div className="hero-content">
-          <h1>Smart India Hackathon 2025</h1>
+          <h1>Telangana MSME</h1>
           <p className="hero-sub">
-            World’s Biggest Open Innovation Platform
+            Fueling the backbone of our economy, where small scale meets limitless ambition
           </p>
 
           <div className="hero-quote">
-            “Innovate. Implement. Impact.  
-            Transforming ideas into national solutions.”
+            aims to foster inclusive growth, technological advancement, and job creation across approximately 26 lakh MSMEs in the state
           </div>
 
            <Link to="/problems" className="hero-btn">

@@ -3,18 +3,18 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div>
-          <h3>Smart India Hackathon 2025</h3>
-          <p>Ministry of Education | Government of India</p>
+          <h3>TG-MSME</h3>
+          <p>Ministry of MSME | Government of Telangana</p>
         </div>
 
         <div>
-          <p>Email: support@sih.gov.in</p>
+          <p>Email: support@tg-msme.gov.in</p>
           <p>Phone: +91-XXXXXXXXXX</p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        © 2025 Smart India Hackathon | All Rights Reserved
+        © 2025 TG-MSME | All Rights Reserved
       </div>
     </footer>
   );

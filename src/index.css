@@ -3,12 +3,12 @@
 /* ===================================== */
 
 :root {
-  --primary-green: #00695C;
-  --deep-green: #004D40;
+  --primary-green: #4b275e;
+  --deep-green: #2a8caf;
   --accent-orange: #F57C00;
-  --accent-red: #C62828;
+  --accent-red: #4c75ce;
   --light-bg: #F4F8F6;
-  --text-dark: #1C2B2D;
+  --text-dark: #293046;
 }
 
 /* ===================================== */
@@ -37,7 +37,7 @@ section {
 /* ===================================== */
 
 .gov-strip {
-  background: #3fb57e;
+  background: #3a8be2;
   padding: 12px 0;
   border-bottom: 2px solid var(--accent-orange);
 }
@@ -70,7 +70,7 @@ section {
   padding: 8px 20px;
   border-radius: 25px;
   background: var(--accent-orange);
-  color: rgb(209, 128, 128);
+  color: rgb(131, 63, 63);
 }
 
 /* ===================================== */
@@ -124,7 +124,7 @@ section {
 }
 
 .hero-overlay {
-  background: rgba(0, 77, 64, 0.85);
+  background: rgba(60, 150, 192, 0.85);
   height: 100%;
   display: flex;
   align-items: center;
@@ -133,7 +133,7 @@ section {
 }
 
 .hero-content {
-  color: white;
+  color: rgb(203, 210, 212);
 }
 
 .hero-content h1 {
@@ -145,7 +145,7 @@ section {
   margin-top: 30px;
   padding: 14px 40px;
   background: var(--accent-orange);
-  color: white;
+  color: rgb(58, 48, 48);
   border-radius: 30px;
   text-decoration: none;
   display: inline-block;
@@ -196,7 +196,7 @@ section {
 
 .themes-sub {
   font-size: 16px;
-  color: #d68585;
+  color: #4d4a5a;
   margin-bottom: 40px;
 }
 
@@ -222,7 +222,7 @@ section {
 
 .theme-card {
   min-width: 280px;
-  background: rgb(207, 181, 181);
+  background: rgb(105, 159, 206);
   padding: 25px;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
@@ -233,7 +233,7 @@ section {
 
 .theme-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(150, 21, 21, 0.12);
+  box-shadow: 0 14px 30px rgba(40, 76, 97, 0.12);
 }
 
 .theme-card img {
@@ -247,7 +247,7 @@ section {
 .theme-card h3 {
   font-size: 18px;
   font-weight: 700;
-  color: #0f5c4d;
+  color: #1b0b6d;
   margin-bottom: 8px;
 }
 
@@ -259,7 +259,7 @@ section {
 
 .arrow {
   position: absolute;
-  background: #ac5f13;
+  background: #2a82bd;
   border: none;
   color: rgb(145, 60, 60);
   font-size: 26px;
@@ -278,7 +278,7 @@ section {
 }
 
 .arrow:hover {
-  background: #e65100;
+  background: #08042a;
 }
 /* ===================================== */
 /* GUIDELINES */
@@ -384,72 +384,132 @@ section {
   padding-top: 10px;
   font-size: 14px;
 }
-/* Banner */
-.ps-banner {
-  background: linear-gradient(135deg,#004D40,#00695C);
-  color: white;
-  text-align: center;
-  padding: 80px 0;
+/* ============================= */
+/* PROBLEM STATEMENTS PAGE */
+/* ============================= */
+
+.ps-container{
+width:90%;
+margin:auto;
+padding:40px 0;
+font-family:Arial, Helvetica, sans-serif;
 }
 
-.ps-banner h1 {
-  font-size: 50px;
+/* HEADER */
+
+.ps-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 }
 
-/* Stats */
-.ps-stats {
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  padding: 40px;
-  background: #0B3D2E;
-  color: white;
+.ps-title{
+font-size:30px;
+font-weight:700;
+color:#1f2937;
 }
 
-.stat h2 {
-  font-size: 40px;
+/* TEMPLATE BUTTON */
+
+.template-download{
+background:#ff7a00;
+color:white;
+padding:10px 18px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+transition:0.2s;
 }
 
-.ps-table-container {
-  width: 90%;
-  margin: 50px auto;
+.template-download:hover{
+background:#e86d00;
 }
 
-.ps-table {
-  width: 100%;
-  border-collapse: collapse;
+/* FILTERS */
+
+.ps-filters{
+display:flex;
+gap:30px;
+margin-bottom:30px;
 }
 
-.ps-table th,
-.ps-table td {
-  padding: 15px;
-  border: 1px solid #ddd;
+.filter-group{
+display:flex;
+flex-direction:column;
+font-size:14px;
+font-weight:600;
+color:#374151;
 }
 
-.ps-table th {
-  background: #f5f5f5;
+.filter-group select{
+margin-top:6px;
+padding:8px;
+border-radius:6px;
+border:1px solid #cbd5e1;
+min-width:200px;
+background:white;
 }
 
-.ps-link {
-  color: #00695C;
-  font-weight: 600;
-  text-decoration: none;
+/* TABLE */
+
+.ps-table{
+width:100%;
+border-collapse:collapse;
+box-shadow:0 3px 10px rgba(0,0,0,0.05);
 }
 
-.ps-link:hover {
-  color: #F57C00;
+/* TABLE HEADER */
+
+.ps-table thead{
+background:#579fcf;
+color:white;
 }
 
-.ps-details {
-  width: 70%;
-  margin: 80px auto;
+.ps-table th{
+padding:14px;
+text-align:left;
+font-size:14px;
 }
 
-.apply-btn {
-  margin-top: 30px;
-  padding: 12px 30px;
-  background: #F57C00;
-  color: white;
-  border: none;
-  border-radius: 6px;
+/* TABLE BODY */
+
+.ps-table td{
+padding:14px;
+border-bottom:1px solid #e5e7eb;
+font-size:14px;
+}
+
+/* ROW HOVER */
+
+.ps-table tbody tr:hover{
+background:#f1f5f9;
+}
+
+/* APPLY BUTTON */
+
+.apply-btn{
+background:#0ea5e9;
+border:none;
+color:white;
+padding:6px 14px;
+border-radius:4px;
+cursor:pointer;
+font-weight:600;
+}
+
+.apply-btn:hover{
+background:#0284c7;
+}
+
+/* LINK STYLE */
+
+.ps-table a{
+text-decoration:none;
+color:#2563eb;
+font-weight:500;
+}
+
+.ps-table a:hover{
+text-decoration:underline;
 }
