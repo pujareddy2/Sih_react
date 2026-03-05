@@ -1,62 +1,64 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import problemData from "../data/problemData";
 import "./problemstatements.css";
 
 function ProblemStatements() {
 
-const [category,setCategory] = useState("");
-const [theme,setTheme] = useState("");
-const [currentPage,setCurrentPage] = useState(1);
+const navigate = useNavigate();
 
-const problemsPerPage = 10;
+const [categoryFilter,setCategoryFilter] = useState("");
+const [themeFilter,setThemeFilter] = useState("");
+
+/* Problems added by evaluator */
+
+const storedProblems =
+JSON.parse(localStorage.getItem("addedProblems")) || [];
+
+/* Merge original + evaluator problems */
+
+const allProblems = [...problemData, ...storedProblems];
 
 
-/* FILTER LOGIC */
+/* Filtering Logic */
 
-const filteredProblems = problemData.filter((p)=>{
+const filteredProblems = allProblems.filter((problem)=>{
 
 return (
-(category === "" || p.category === category) &&
-(theme === "" || p.theme === theme)
+(categoryFilter === "" || problem.category === categoryFilter) &&
+(themeFilter === "" || problem.theme === themeFilter)
 );
 
 });
 
 
-/* PAGINATION */
-
-const indexOfLast = currentPage * problemsPerPage;
-const indexOfFirst = indexOfLast - problemsPerPage;
-
-const currentProblems = filteredProblems.slice(indexOfFirst,indexOfLast);
-
-const totalPages = Math.ceil(filteredProblems.length / problemsPerPage);
-
-
-
 return(
 
-<div className="ps-container">
+<div className="ps-page">
 
 <h1 className="ps-title">
 TS-MSME Problem Statements
 </h1>
 
 
-{/* Download Template */}
+{/* Top Buttons */}
 
-<div className="template-box">
+<div className="top-actions">
 
 <a
 href="/template/template.pptx"
 download
 className="template-btn"
 >
-
 Download PPT Template
-
 </a>
+
+<button
+className="add-problem-btn"
+onClick={()=>navigate("/login?source=addproblem")}
+>
+Add Problem Statement
+</button>
 
 </div>
 
@@ -65,39 +67,49 @@ Download PPT Template
 
 <div className="filters">
 
+<div className="filter-box">
+
+<label>Category</label>
+
 <select
-value={category}
-onChange={(e)=>setCategory(e.target.value)}
+value={categoryFilter}
+onChange={(e)=>setCategoryFilter(e.target.value)}
 >
 
-<option value="">Select Category</option>
+<option value="">All</option>
 <option value="Software">Software</option>
 <option value="Hardware">Hardware</option>
 <option value="Miscellaneous">Miscellaneous</option>
 
 </select>
 
+</div>
+
+
+<div className="filter-box">
+
+<label>Theme</label>
 
 <select
-value={theme}
-onChange={(e)=>setTheme(e.target.value)}
+value={themeFilter}
+onChange={(e)=>setThemeFilter(e.target.value)}
 >
 
-<option value="">Select Theme</option>
+<option value="">All</option>
 <option value="Artificial Intelligence">Artificial Intelligence</option>
-<option value="Agriculture">Agriculture</option>
-<option value="Cyber Security">Cyber Security</option>
-<option value="Smart Cities">Smart Cities</option>
-<option value="FinTech">FinTech</option>
+<option value="Smart Education">Smart Education</option>
 <option value="Health Tech">Health Tech</option>
+<option value="Agriculture">Agriculture</option>
+<option value="Sustainable Development">Sustainable Development</option>
 
 </select>
 
 </div>
 
+</div>
 
 
-{/* TABLE */}
+{/* Problem Statements Table */}
 
 <table className="ps-table">
 
@@ -105,8 +117,8 @@ onChange={(e)=>setTheme(e.target.value)}
 
 <tr>
 
-<th>S.No</th>
-<th>Problem Title</th>
+<th>ID</th>
+<th>Problem Statement</th>
 <th>Category</th>
 <th>Theme</th>
 <th>Deadline</th>
@@ -120,63 +132,40 @@ onChange={(e)=>setTheme(e.target.value)}
 
 <tbody>
 
-{currentProblems.map((p,index)=>(
-<tr key={p.id}>
+{filteredProblems.map((problem)=>(
 
-<td>{indexOfFirst + index + 1}</td>
+<tr key={problem.id}>
 
-<td>{p.title}</td>
+<td>{problem.id}</td>
 
-<td>{p.category}</td>
+<td>{problem.title}</td>
 
-<td>{p.theme}</td>
+<td>{problem.category}</td>
 
-<td>{p.deadline}</td>
+<td>{problem.theme}</td>
 
-<td>{p.submissions}/{p.max}</td>
+<td>{problem.deadline}</td>
+
+<td>{problem.submissions}</td>
 
 <td>
 
-<Link to={`/problems/${p.id}`}>
-
-<button className="view-btn">
-
+<button
+className="view-btn"
+onClick={()=>navigate(`/problems/${problem.id}`)}
+>
 View
-
 </button>
-
-</Link>
 
 </td>
 
 </tr>
+
 ))}
 
 </tbody>
 
 </table>
-
-
-
-{/* Pagination */}
-
-<div className="pagination">
-
-{[...Array(totalPages)].map((_,i)=>(
-
-<button
-key={i}
-className={`page-btn ${currentPage===i+1 ? "active":""}`}
-onClick={()=>setCurrentPage(i+1)}
->
-
-{i+1}
-
-</button>
-
-))}
-
-</div>
 
 </div>
 

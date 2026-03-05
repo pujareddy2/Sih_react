@@ -147,9 +147,11 @@ function Application() {
 
     const newSubmission = {
       id: Date.now(),
-      problemId: id,
+      problemId: Number(id),
+      problemStatement: problem?.title || "Unknown Problem",
       leader: members[0].name,
       college: members[0].college,
+      abstract: solution,
       score: "-",
       status: "Pending"
     };

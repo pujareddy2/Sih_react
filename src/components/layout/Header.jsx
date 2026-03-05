@@ -19,6 +19,7 @@ function Header() {
           <div className="gov-right">
             <Link to="/login" className="login-btn">
               Portal Login
+              navigate ("/login")
             </Link>
           </div>
 

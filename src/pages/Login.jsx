@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-
+import { useSearchParams } from "react-router-dom";
 function Login() {
 
   const navigate = useNavigate();
 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [role,setRole] = useState("");
+const [searchParams] = useSearchParams();
+const source = searchParams.get("source");
+
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [role, setRole] = useState("");
 
   const handleSubmit = (e) => {
 
@@ -27,14 +30,23 @@ function Login() {
         email === "160623733160@gmail.com" &&
         password === "160623733160"
       ){
-        navigate("/evaluator");
-      }
-      else{
-        alert("Invalid Evaluator Credentials");
-      }
 
-      return;
-    }
+if(source === "addproblem"){
+navigate("/add-problem");
+
+}
+else{
+navigate("/evaluator");
+}
+
+}
+else{
+alert("Invalid Evaluator Credentials");
+}
+
+return;
+
+}
 
     /* User / Student Login */
 
