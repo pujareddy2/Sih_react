@@ -2,6 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import "./application.css";
 import problemData from "../data/problemData";
+import { extractPPTText } from "../utils/pptParser";
+import { evaluateSubmission } from "../utils/gemini";
 
 function Application() {
 
@@ -10,6 +12,7 @@ function Application() {
 
   const [solution,setSolution] = useState("");
   const [file,setFile] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [members,setMembers] = useState([
     {
@@ -67,8 +70,8 @@ function Application() {
 
     const name = selected.name.toLowerCase();
 
-    if(!name.endsWith(".ppt") && !name.endsWith(".pptx")){
-      alert("Only PPT or PPTX files allowed");
+    if(!name.endsWith(".pptx")){
+      alert("Only PPTX files are supported for AI slide-text extraction");
       e.target.value = "";
       return;
     }
@@ -116,7 +119,11 @@ function Application() {
 
   /* SUBMIT APPLICATION */
 
-  const submitForm = () => {
+  const submitForm = async () => {
+
+    if(isSubmitting){
+      return;
+    }
 
     if(!allMembersFilled()){
       alert("Please fill ALL member details");
@@ -133,41 +140,88 @@ function Application() {
       return;
     }
 
-    /* ---------- Update Problem Submission Count ---------- */
+    setIsSubmitting(true);
 
-    const problem = problemData.find(p => p.id === parseInt(id));
+    try{
+      /* ---------- Update Problem Submission Count ---------- */
 
-    if(problem){
-      problem.submissions = problem.submissions + 1;
-    }
+      const problem = problemData.find(p => p.id === parseInt(id, 10));
+      const problemStatement = problem?.title || "Unknown Problem";
 
-    /* ---------- Store submission for evaluator dashboard ---------- */
-
-    const existing = JSON.parse(localStorage.getItem("submissions")) || [];
-
-    const newSubmission = {
-      id: Date.now(),
-      problemId: Number(id),
-      problemStatement: problem?.title || "Unknown Problem",
-      leader: members[0].name,
-      college: members[0].college,
-      abstract: solution,
-      score: "-",
-      status: "Pending"
-    };
-
-    existing.push(newSubmission);
-
-    localStorage.setItem("submissions", JSON.stringify(existing));
-
-    /* ---------- Redirect ---------- */
-
-    navigate("/confirmation",{
-      state:{
-        members:members,
-        solution:solution
+      if(problem){
+        problem.submissions = problem.submissions + 1;
       }
-    });
+
+      let pptText = "";
+      let parserError = "";
+
+      try{
+        pptText = (await extractPPTText(file)).slice(0,12000);
+      }catch(error){
+        parserError = error?.message || "Could not extract slide text.";
+      }
+
+      let aiReport = null;
+      let aiStatus = "Failed";
+      let aiError = "";
+
+      if(!parserError){
+        try{
+          aiReport = await evaluateSubmission({
+            teamName: members[0].name || "Unknown Team",
+            problemStatement,
+            abstract: solution,
+            pptContent: pptText
+          });
+          aiStatus = "Completed";
+        }catch(error){
+          aiError = error?.message || "AI evaluation failed.";
+        }
+      } else {
+        aiError = "PPT text extraction failed, so AI evaluation could not be completed.";
+      }
+
+      const finalAiError = [parserError, aiError].filter(Boolean).join(" | ");
+
+      /* ---------- Store submission for evaluator dashboard ---------- */
+
+      const existing = JSON.parse(localStorage.getItem("submissions")) || [];
+
+      const newSubmission = {
+        id: Date.now(),
+        problemId: Number(id),
+        problemStatement,
+        leader: members[0].name,
+        college: members[0].college,
+        abstract: solution,
+        pptFileName: file.name,
+        pptText,
+        aiReport,
+        aiStatus,
+        aiError: finalAiError,
+        score: aiReport ? aiReport.overallScore : "-",
+        status: aiReport ? "AI Reviewed" : "Pending AI Review",
+        submittedAt: new Date().toISOString()
+      };
+
+      existing.push(newSubmission);
+      localStorage.setItem("submissions", JSON.stringify(existing));
+
+      /* ---------- Redirect ---------- */
+
+      navigate("/confirmation",{
+        state:{
+          members:members,
+          solution:solution,
+          problemStatement,
+          aiReport,
+          aiStatus,
+          aiError: finalAiError
+        }
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
 
   };
 
@@ -376,12 +430,12 @@ function Application() {
         <input
           className="fileInput"
           type="file"
-          accept=".ppt,.pptx"
+          accept=".pptx"
           onChange={handleFileChange}
         />
 
         <p className="pptNote">
-          PPT must follow the given template format
+          PPTX must follow the given template format
         </p>
 
       </div>
@@ -390,9 +444,9 @@ function Application() {
       <button
         className="submitBtn"
         onClick={submitForm}
-        disabled={!isFormValid()}
+        disabled={!isFormValid() || isSubmitting}
       >
-        Submit Application
+        {isSubmitting ? "Submitting and running AI evaluation..." : "Submit Application"}
       </button>
 
     </div>

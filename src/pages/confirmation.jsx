@@ -1,4 +1,3 @@
-
 import { useLocation } from "react-router-dom";
 import "./confirmation.css";
 
@@ -8,6 +7,10 @@ function Confirmation() {
 
   const members = location.state?.members || [];
   const solution = location.state?.solution || "";
+  const problemStatement = location.state?.problemStatement || "";
+  const aiReport = location.state?.aiReport || null;
+  const aiStatus = location.state?.aiStatus || "Pending";
+  const aiError = location.state?.aiError || "";
 
   return (
     <div>
@@ -39,6 +42,32 @@ function Confirmation() {
         <h3 className="sectionTitle">Abstract</h3>
 
         <div className="abstractBox">{solution}</div>
+
+        {problemStatement && (
+          <>
+            <h3 className="sectionTitle">Problem Statement</h3>
+            <div className="abstractBox">{problemStatement}</div>
+          </>
+        )}
+
+        <h3 className="sectionTitle">AI Evaluation Status</h3>
+        <div className="abstractBox">Status: {aiStatus}</div>
+
+        {aiReport && (
+          <div className="abstractBox" style={{ marginTop: "10px" }}>
+            Overall Score: {aiReport.overallScore}/10
+            <br />
+            Qualification: {aiReport.qualificationDecision}
+            <br />
+            Summary: {aiReport.summary}
+          </div>
+        )}
+
+        {aiError && (
+          <div className="abstractBox" style={{ marginTop: "10px", color: "#b91c1c" }}>
+            AI Note: {aiError}
+          </div>
+        )}
       </div>
     </div>
   );
